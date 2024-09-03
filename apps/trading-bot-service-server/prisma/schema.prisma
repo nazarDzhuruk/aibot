@@ -1,0 +1,30 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Transaction {
+  amount        Float?
+  createdAt     DateTime                  @default(now())
+  cryptoType    String?
+  id            String                    @id @default(cuid())
+  typeField     EnumTransactionTypeField?
+  updatedAt     DateTime                  @updatedAt
+  walletAddress String?
+}
+
+model Wallet {
+  address   String?
+  balance   Float?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumTransactionTypeField {
+  Option1
+}
